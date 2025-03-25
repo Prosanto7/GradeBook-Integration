@@ -37,6 +37,7 @@ require_once($CFG->libdir . '/gradelib.php');
 ```
 
 ### Step 03: Update the Add instance function GradeBook in lib.php
+Here, we have to call pluginname_grade_item_update() when Course Module will be created.
 ```php
 function pluginname_add_instance($data) {
     global $DB;
@@ -53,7 +54,7 @@ function pluginname_add_instance($data) {
 - Returns the new instance ID.
 
 ### Step 04: Creating / Updating Grade Item
-
+This function ensures that a grade item exists in the Gradebook when the plugin is used.
 ```php
 function pluginname_grade_item_update($pluginname) {
     $item = [
@@ -67,15 +68,15 @@ function pluginname_grade_item_update($pluginname) {
 }
 ```
 
-- This function creates or updates a grade entry for the submission activity.
+- It creates or updates a grade entry for the submission activity.
 - It defines a grade item ($item) with:
 - itemname → Activity name.
 - gradetype → Uses numeric grading (GRADE_TYPE_VALUE).
 - grademax and grademin → Set the grade range (0–100).
 - Calls grade_update() to update Moodle's grade book.
 
-### Updating Student Grades
-
+### Updating Student Grades When Needed
+Whenever a user submits an activity, update their grade.
 ```php
 function pluginname_update_grades($pluginname, $userid = 0) {
     global $DB;
@@ -96,7 +97,7 @@ function pluginname_update_grades($pluginname, $userid = 0) {
 }
 
 ```
-This function updates grades for a specific student ($userid) or all students who submitted.
+This function updates user grades in Moodle's Gradebook for a specific student ($userid) or all students who submitted.
 
 - If $userid is provided, It fetches the grade of that student from pluginname_grade_table.
 - If $userid is 0 (default), It retrieves all student grades for the given submission.
