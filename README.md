@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/gradelib.php');
 ```
 
-### Step 03: Update Add instance GradeBook in lib.php
+### Step 03: Update the Add instance function GradeBook in lib.php
 ```php
 function pluginname_add_instance($data) {
     global $DB;
