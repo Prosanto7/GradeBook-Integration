@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="mod/textgrader/db" VERSION="2024031900" COMMENT="Text Grader Plugin">
+<TABLES>
+    <TABLE NAME="textgrader" COMMENT="each record is one text grader resource">
+			<FIELDS>
+				<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+				<FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+				<FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+				<FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+				<FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+				<FIELD NAME="attempts" TYPE="int" LENGTH="6" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The maximum number of attempts a student is allowed."/>
+				<FIELD NAME="grademethod" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="One of the values QUIZ_GRADEHIGHEST, QUIZ_GRADEAVERAGE, QUIZ_ATTEMPTFIRST or QUIZ_ATTEMPTLAST."/>
+				<FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The maximum grade for this textgrader pdf. Can be negative to indicate the use of a scale."/>				
+				<FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+				<FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>			</FIELDS>
+			<KEYS>
+				<KEY NAME="primary" TYPE="primary" FIELDS="id" />
+			</KEYS>
+			<INDEXES>
+				<INDEX NAME="course" UNIQUE="false" FIELDS="course" />
+			</INDEXES>
+        </TABLE>
+
+        <TABLE NAME="textgrader_submissions" COMMENT="Stores student submissions and grades">
+        <FIELDS>
+            <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+            <FIELD NAME="submission" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Instance of textgrader"/>
+            <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="User who submitted"/>
+            <FIELD NAME="content" TYPE="text" NOTNULL="false" COMMENT="Student submission text"/>
+            <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="Grade given by teacher"/>
+            <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Submission time"/>
+            <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Last update time"/>
+        </FIELDS>
+        <KEYS>
+            <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            <KEY NAME="submission_user" TYPE="unique" FIELDS="submission, userid"/>
+        </KEYS>
+
+        <INDEXES>
+            <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+            <INDEX NAME="submission_idx" UNIQUE="false" FIELDS="submission"/>
+        </INDEXES>
+    </TABLE>
+</TABLES>
+</XMLDB>
