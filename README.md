@@ -50,7 +50,7 @@ function pluginname_add_instance($data) {
 - This function adds a new plugin  activity in Moodle.
 - $data->timecreated = time(); → Stores the timestamp of creation.
 - $DB->insert_record('pluginname', $data); → Inserts the data into the plugin table.
-- textsubmission_grade_item_update($data); → Calls another function to set up the grade book entry.
+- pluginname_grade_item_update($data); → Calls another function to set up the grade book entry.
 - Returns the new instance ID.
 
 ### Step 04: Creating / Updating Grade Item
